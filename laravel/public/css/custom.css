@@ -1,0 +1,87 @@
+/* Custom styles */
+.bg-gradient-primary {
+    background: linear-gradient(45deg, #4e73df, #224abe);
+}
+
+.bg-gradient-success {
+    background: linear-gradient(45deg, #1cc88a, #13855c);
+}
+
+.bg-gradient-info {
+    background: linear-gradient(45deg, #36b9cc, #258391);
+}
+
+.bg-gradient-warning {
+    background: linear-gradient(45deg, #f6c23e, #dda20a);
+}
+
+/* Card stats hover effect */
+.card {
+    transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* Table styles */
+.table {
+    --bs-table-hover-bg: rgba(0, 0, 0, 0.02);
+}
+
+.table th {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Badge styles */
+.badge {
+    font-weight: 500;
+    letter-spacing: 0.3px;
+}
+
+.badge.bg-opacity-10 {
+    border: 1px solid currentColor;
+}
+
+/* Button styles */
+.btn-light {
+    background-color: #f8f9fa;
+    border-color: #f0f2f5;
+}
+
+.btn-light:hover {
+    background-color: #e9ecef;
+    border-color: #dee2e6;
+}
+
+/* Tooltip styling */
+.tooltip {
+    font-size: 0.75rem;
+}
+
+/* Card stats icon container */
+.rounded-circle.bg-opacity-25 {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo {
+    height:40px;
+    width:auto;
+    margin-right:10px;
+}
+
+/* Responsive text size */
+@media (max-width: 768px) {
+    .card h2 {
+        font-size: 1.5rem;
+    }
+    .card h6 {
+        font-size: 0.8rem;
+    }
+}

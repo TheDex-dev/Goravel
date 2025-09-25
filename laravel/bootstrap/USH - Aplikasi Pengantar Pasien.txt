@@ -1,0 +1,91 @@
+Aplikasi Pendataan Pengirim Pasien
+Tujuan:
+Mencatat identitas pengantar pasien yang datang ke IGD untuk keperluan dokumentasi dan
+keamanan.
+1. Proses Awal
+• Pasien datang diantar oleh seseorang.
+• Pihak rumah sakit (RS) mencatat informasi pengantar.
+2. Kategori Pengantar
+• Polisi
+• Ambulans
+• Perorangan
+3. QR Code untuk Input Data
+• RS menyediakan QR Code yang mengarah ke formulir pengisian data.
+• Pengantar pasien diminta untuk:
+o Mengisi data diri
+o Mengunggah foto
+4. Data yang Diisi
+• Nama pengantar
+• Jenis kelamin
+• Nomor HP
+• Plat nomor kendaraan pengantar
+• Nama pasien yang diantar
+• Foto pengantar (dengan/atau tanpa pasien, sesuai SOP)
+5. Tindakan di IGD
+• Tim IGD membuka link isian dengan login.
+• Data diverifikasi & dikonfirmasi oleh petugas IGD.
+
+Requirements
+• Framework: Laravel 8
+• PHP Version: 8.2
+• Database: PostgreSQL / SQL Server
+Struktur Aplikasi
+1. Frontend
+• Dibangun menggunakan Blade View + Route Laravel
+• AJAX digunakan untuk komunikasi dengan API
+2. Backend
+• Laravel
+3.Kebutuhan Programmer
+• 2 Frontend
+• 1 Backend
+• 1 Database Engineer(System Analyst)
+4. Job Descriptions
+•
+
+•
+
+•
+
+Frontend Developer
+Bertanggung jawab dalam pengembangan tampilan antarmuka pengguna (UI) menggunakan Blade Laravel
+serta integrasi AJAX dengan API
+Backend Developer
+Bertugas membangun dan mengelola API menggunakan Laravel dan Golang, termasuk penanganan
+session dan autentikasi token.
+Database Engineer
+Menangani perancangan, mirroring, dan optimasi struktur database PostgreSQL , termasuk peningkatan
+performa query, pengelolaan indexing, serta penataan relasi antar tabel secara efisien.
+
+Integrasi API pada Laravel Controller
+• Integrasi API dilakukan dalam controller Laravel menggunakan metode POST
+• Disimpan ke session, untuk diambil di javascript
+<script>
+var link = "{{ session('link') }}";
+var token = "{{ session('token') }}";
+$.ajax({
+url: link + '/api/refresh-data',
+method: 'POST',
+headers: {
+'Authorization': 'Bearer ' + token
+},
+data: {
+norm: ‘123’
+},
+success: function(res) {
+console.log(res);
+},
+error: function(err) {
+console.error('Error:', err);
+}
+});
+</script >
+•
+•
+
+Response dari API dikirim ke View Laravel
+Di dalam View, AJAX akan digunakan untuk memanggil API dan menampilkan data
+
+Tes API & Dokumentasi
+• Dokumentasi API di masukan ke dalam Postman
+
+
