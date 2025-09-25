@@ -169,6 +169,18 @@ start_laravel_server() {
     fi
 }
 
+# Opening kitty terminal to tail logs automatically
+open_log_terminal() {
+    if command -v kitty &> /dev/null; then
+        print_info "Opening kitty terminal to tail Go server logs..."
+        kitty --detach sh -c "tail -f $GO_SERVER_DIR/log.txt"
+        print_info "Opening kitty terminal to tail Laravel server logs..."
+        kitty --detach sh -c "tail -f $LARAVEL_DIR/storage/logs/serve.log"
+    else
+        print_warning "Kitty terminal not found. Please check Go server logs manually at $GO_SERVER_DIR/log.txt"
+    fi
+}
+
 # Show running servers status
 show_status() {
     echo ""
@@ -232,6 +244,7 @@ main() {
     
     check_dependencies
     cleanup_ports
+    open_log_terminal
     
     # Start servers
     if start_go_server; then
