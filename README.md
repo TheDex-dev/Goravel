@@ -95,7 +95,7 @@ Features:
 ### File Locations
 - Go binary: `goserver/goserver`
 - Go logs: `goserver/log.txt`
-- Laravel logs: `Pendataan_IGD/storage/logs/serve.log`
+- Laravel logs: `laravel/storage/logs/serve.log`
 - Server PIDs: `server_pids.txt`
 
 ## 🌟 Key Improvements
@@ -143,7 +143,7 @@ make build
 
 **Laravel dependencies missing:**
 ```bash
-cd Pendataan_IGD
+cd laravel
 composer install
 ```
 
@@ -160,10 +160,10 @@ chmod +x *.sh              # Make scripts executable
 tail -f goserver/log.txt
 
 # Laravel server logs  
-tail -f Pendataan_IGD/storage/logs/serve.log
+tail -f laravel/storage/logs/serve.log
 
 # Laravel application logs
-tail -f Pendataan_IGD/storage/logs/laravel.log
+tail -f laravel/storage/logs/laravel.log
 ```
 
 **Monitor servers continuously:**
@@ -220,7 +220,7 @@ When servers are running, you'll have access to:
 
 # Check logs
 tail -f goserver/log.txt
-tail -f Pendataan_IGD/storage/logs/serve.log
+tail -f laravel/storage/logs/serve.log
 
 # Restart
 ./start_servers.sh
