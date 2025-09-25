@@ -7,7 +7,7 @@ set -e  # Exit on any error
 # Configuration
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)"
 GO_SERVER_DIR="$SCRIPT_DIR/goserver"
-LARAVEL_DIR="$SCRIPT_DIR/Pendataan_IGD"
+LARAVEL_DIR="$SCRIPT_DIR/laravel"
 GO_PORT=8080
 LARAVEL_PORT=8000
 
@@ -189,7 +189,7 @@ show_status() {
     echo "   Stop servers:         ./stop_servers.sh"
     echo "   Test migration:       ./test_migration.sh"
     echo "   Server logs:          tail -f goserver/log.txt"
-    echo "   Laravel logs:         tail -f Pendataan_IGD/storage/logs/serve.log"
+    echo "   Laravel logs:         tail -f laravel/storage/logs/serve.log"
     echo ""
     
     # Save PIDs for easy stopping

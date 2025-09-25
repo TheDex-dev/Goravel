@@ -403,7 +403,8 @@ class GoApiService
         if ($statusCode >= 200 && $statusCode < 300) {
             return $data;
         } else {
-            $errorMessage = $data['message'] ?? 'Unknown error from Go API';
+            // Handle error response - check for various error message fields
+            $errorMessage = $data['message'] ?? $data['error'] ?? $data['details'] ?? 'Unknown error from Go API';
             throw new \Exception($errorMessage, $statusCode);
         }
     }

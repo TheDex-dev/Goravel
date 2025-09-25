@@ -73,12 +73,25 @@ class TestGoApiIntegration extends Command
             
             $this->info('✅ Health Check Passed');
             $this->line("Status: {$result['status']}");
-            $this->line("Message: {$result['message']}");
+            if (isset($result['message'])) {
+                $this->line("Message: {$result['message']}");
+            }
             
             if (isset($result['data'])) {
                 $this->table(['Property', 'Value'], collect($result['data'])->map(function ($value, $key) {
                     return [$key, is_array($value) ? json_encode($value) : $value];
                 })->toArray());
+            } else {
+                // Display other fields from health check response
+                $healthData = [];
+                foreach ($result as $key => $value) {
+                    if ($key !== 'status' && $key !== 'message') {
+                        $healthData[] = [$key, is_array($value) ? json_encode($value) : $value];
+                    }
+                }
+                if (!empty($healthData)) {
+                    $this->table(['Property', 'Value'], $healthData);
+                }
             }
 
             return 0;
@@ -106,7 +119,9 @@ class TestGoApiIntegration extends Command
             
             $this->info('✅ Get Escorts Passed');
             $this->line("Status: {$result['status']}");
-            $this->line("Message: {$result['message']}");
+            if (isset($result['message'])) {
+                $this->line("Message: {$result['message']}");
+            }
             
             if (isset($result['meta'])) {
                 $meta = $result['meta'];
@@ -153,7 +168,9 @@ class TestGoApiIntegration extends Command
             
             $this->info('✅ QR Code JSON Generation Passed');
             $this->line("Status: {$result['status']}");
-            $this->line("Message: {$result['message']}");
+            if (isset($result['message'])) {
+                $this->line("Message: {$result['message']}");
+            }
             
             if (isset($result['data']['qr_code_base64'])) {
                 $base64Length = strlen($result['data']['qr_code_base64']);
