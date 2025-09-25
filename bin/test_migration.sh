@@ -309,7 +309,7 @@ run_all_tests() {
         
         echo ""
         print_info "Troubleshooting tips:"
-        echo "  1. Ensure Go server is running: cd /home/stolas/project0/goserver && ./goserver"
+        echo "  1. Ensure Go server is running: cd goserver && ./goserver"
         echo "  2. Check Go server logs for errors"
         echo "  3. Verify PostgreSQL database is accessible"
         echo "  4. Check Laravel .env configuration for GO_API_URL"

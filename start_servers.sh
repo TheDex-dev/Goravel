@@ -183,24 +183,24 @@ show_status() {
     print_info "🔗 Available Endpoints:"
     echo "   📋 API Documentation: http://localhost:$LARAVEL_PORT/api"
     echo "   🏥 Health Check:      http://localhost:$GO_PORT/api/health"
-    echo "   📊 Dashboard:         http://localhost:$LARAVEL_URL"
+    echo "   📊 Dashboard:         http://localhost:$LARAVEL_PORT"
     echo ""
     print_info "🛠️  Management Commands:"
     echo "   Stop servers:         ./stop_servers.sh"
-    echo "   Test migration:       ./test_migration.sh"
+    echo "   Test migration:       ./bin/test_migration.sh"
     echo "   Server logs:          tail -f goserver/log.txt"
     echo "   Laravel logs:         tail -f laravel/storage/logs/serve.log"
     echo ""
     
     # Save PIDs for easy stopping
-    cat > server_pids.txt << EOF
+    cat > "$SCRIPT_DIR/bin/server_pids.txt" << EOF
 GO_PID=$GO_PID
 LARAVEL_PID=$LARAVEL_PID
 GO_PORT=$GO_PORT
 LARAVEL_PORT=$LARAVEL_PORT
 EOF
     
-    print_success "Server PIDs saved to server_pids.txt"
+    print_success "Server PIDs saved to bin/server_pids.txt"
 }
 
 # Cleanup function for proper shutdown
@@ -261,8 +261,8 @@ case "${1:-start}" in
         main
         ;;
     "status")
-        if [[ -f "server_pids.txt" ]]; then
-            source server_pids.txt
+        if [[ -f "$SCRIPT_DIR/bin/server_pids.txt" ]]; then
+            source "$SCRIPT_DIR/bin/server_pids.txt"
             echo "Server Status:"
             echo "Go Server (PID: $GO_PID) - Port: $GO_PORT"
             echo "Laravel Server (PID: $LARAVEL_PID) - Port: $LARAVEL_PORT"

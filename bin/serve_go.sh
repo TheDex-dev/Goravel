@@ -23,7 +23,7 @@ print_info() {
 
 # Navigate to go server directory
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)"
-GO_SERVER_DIR="$SCRIPT_DIR/goserver"
+GO_SERVER_DIR="$SCRIPT_DIR/../goserver"
 
 cd "$GO_SERVER_DIR"
 

@@ -25,6 +25,12 @@ class GoApiService
                 'Content-Type' => 'application/json',
             ]
         ]);
+
+        // Log Go API service initialization
+        Log::info('GoApiService initialized', [
+            'base_url' => $this->baseUrl,
+            'timestamp' => now()->toISOString()
+        ]);
     }
 
     /**
@@ -36,13 +42,26 @@ class GoApiService
      */
     public function getEscorts(array $params = []): array
     {
+        $startTime = microtime(true);
+        $endpoint = '/api/escort';
+
         try {
-            $response = $this->client->get('/api/escort', [
+            $response = $this->client->get($endpoint, [
                 'query' => $params
             ]);
 
-            return $this->handleResponse($response);
+            $duration = microtime(true) - $startTime;
+            $result = $this->handleResponse($response);
+            
+            $this->logApiConnection('GET', $endpoint, $params, $response->getStatusCode(), $duration, 'success');
+            
+            return $result;
         } catch (GuzzleException $e) {
+            $duration = microtime(true) - $startTime;
+            $statusCode = method_exists($e, 'getResponse') && $e->getResponse() ? $e->getResponse()->getStatusCode() : null;
+            
+            $this->logApiConnection('GET', $endpoint, $params, $statusCode, $duration, 'failed');
+            
             Log::error('Go API getEscorts failed', [
                 'error' => $e->getMessage(),
                 'params' => $params
@@ -60,13 +79,26 @@ class GoApiService
      */
     public function createEscort(array $data): array
     {
+        $startTime = microtime(true);
+        $endpoint = '/api/escort';
+
         try {
-            $response = $this->client->post('/api/escort', [
+            $response = $this->client->post($endpoint, [
                 'json' => $data
             ]);
 
-            return $this->handleResponse($response);
+            $duration = microtime(true) - $startTime;
+            $result = $this->handleResponse($response);
+            
+            $this->logApiConnection('POST', $endpoint, $data, $response->getStatusCode(), $duration, 'success');
+            
+            return $result;
         } catch (GuzzleException $e) {
+            $duration = microtime(true) - $startTime;
+            $statusCode = method_exists($e, 'getResponse') && $e->getResponse() ? $e->getResponse()->getStatusCode() : null;
+            
+            $this->logApiConnection('POST', $endpoint, $data, $statusCode, $duration, 'failed');
+            
             Log::error('Go API createEscort failed', [
                 'error' => $e->getMessage(),
                 'data' => $data
@@ -203,11 +235,24 @@ class GoApiService
      */
     public function getDashboardStats(): array
     {
-        try {
-            $response = $this->client->get('/api/dashboard/stats');
+        $startTime = microtime(true);
+        $endpoint = '/api/dashboard/stats';
 
-            return $this->handleResponse($response);
+        try {
+            $response = $this->client->get($endpoint);
+
+            $duration = microtime(true) - $startTime;
+            $result = $this->handleResponse($response);
+            
+            $this->logApiConnection('GET', $endpoint, [], $response->getStatusCode(), $duration, 'success');
+            
+            return $result;
         } catch (GuzzleException $e) {
+            $duration = microtime(true) - $startTime;
+            $statusCode = method_exists($e, 'getResponse') && $e->getResponse() ? $e->getResponse()->getStatusCode() : null;
+            
+            $this->logApiConnection('GET', $endpoint, [], $statusCode, $duration, 'failed');
+            
             Log::error('Go API getDashboardStats failed', [
                 'error' => $e->getMessage()
             ]);
@@ -350,11 +395,24 @@ class GoApiService
      */
     public function healthCheck(): array
     {
-        try {
-            $response = $this->client->get('/api/health');
+        $startTime = microtime(true);
+        $endpoint = '/api/health';
 
-            return $this->handleResponse($response);
+        try {
+            $response = $this->client->get($endpoint);
+
+            $duration = microtime(true) - $startTime;
+            $result = $this->handleResponse($response);
+            
+            $this->logApiConnection('GET', $endpoint, [], $response->getStatusCode(), $duration, 'success');
+            
+            return $result;
         } catch (GuzzleException $e) {
+            $duration = microtime(true) - $startTime;
+            $statusCode = method_exists($e, 'getResponse') && $e->getResponse() ? $e->getResponse()->getStatusCode() : null;
+            
+            $this->logApiConnection('GET', $endpoint, [], $statusCode, $duration, 'failed');
+            
             Log::error('Go API healthCheck failed', [
                 'error' => $e->getMessage()
             ]);
@@ -379,6 +437,47 @@ class GoApiService
                 'error' => $e->getMessage()
             ]);
             throw new \Exception('Go API database test failed: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Log API request details for tracking Laravel-Go communication
+     *
+     * @param string $method
+     * @param string $endpoint
+     * @param array $data
+     * @param int $statusCode
+     * @param float $duration
+     * @param string $result
+     * @return void
+     */
+    private function logApiConnection(string $method, string $endpoint, array $data = [], int $statusCode = null, float $duration = null, string $result = 'success'): void
+    {
+        $logData = [
+            'service' => 'GoApiService',
+            'method' => strtoupper($method),
+            'endpoint' => $endpoint,
+            'full_url' => $this->baseUrl . $endpoint,
+            'timestamp' => now()->toISOString(),
+            'result' => $result,
+        ];
+
+        if (!empty($data)) {
+            $logData['request_data'] = $data;
+        }
+
+        if ($statusCode !== null) {
+            $logData['status_code'] = $statusCode;
+        }
+
+        if ($duration !== null) {
+            $logData['duration_ms'] = round($duration * 1000, 2);
+        }
+
+        if ($result === 'success') {
+            Log::info('Laravel->Go API Connection SUCCESS', $logData);
+        } else {
+            Log::error('Laravel->Go API Connection FAILED', $logData);
         }
     }
 

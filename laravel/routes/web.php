@@ -58,6 +58,33 @@ Route::middleware('auth')->group(function () {
     Route::post('/admin/clear-session-data', [EscortDataController::class, 'clearOldSessionData'])->name('admin.clear-session');
 });
 
+// Go API Connection Test Route (for development/testing)
+Route::get('/test-go-connection', function () {
+    try {
+        $goApiService = app(\App\Services\GoApiService::class);
+        
+        // Test the connection
+        $healthResult = $goApiService->healthCheck();
+        $statsResult = $goApiService->getDashboardStats();
+        
+        return response()->json([
+            'success' => true,
+            'message' => 'Laravel to Go API connection successful!',
+            'timestamp' => now()->toISOString(),
+            'health_check' => $healthResult,
+            'dashboard_stats' => $statsResult,
+            'go_api_url' => $goApiService->getBaseUrl()
+        ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Laravel to Go API connection failed!',
+            'error' => $e->getMessage(),
+            'timestamp' => now()->toISOString(),
+        ], 500);
+    }
+})->name('test.go.connection');
+
 // Redirect root to dashboard if authenticated, otherwise to login
 Route::get('/', function () {
     if (auth()->check()) {

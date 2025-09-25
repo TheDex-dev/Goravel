@@ -92,10 +92,11 @@ show_detailed_status() {
         echo "   Test API:   Run './test_migration.sh'"
         
         # Show PIDs if available
-        if [[ -f "server_pids.txt" ]]; then
+        SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)"
+        if [[ -f "$SCRIPT_DIR/server_pids.txt" ]]; then
             echo ""
             print_info "Server PIDs:"
-            source server_pids.txt
+            source "$SCRIPT_DIR/server_pids.txt"
             echo "   Go Server: $GO_PID"
             echo "   Laravel Server: $LARAVEL_PID"
         fi
@@ -110,7 +111,7 @@ show_detailed_status() {
         
         if [[ "$laravel_healthy" == false ]]; then
             echo "   • Laravel server needs attention"
-            echo "   • Check: tail -f Pendataan_IGD/storage/logs/laravel.log"
+            echo "   • Check: tail -f laravel/storage/logs/laravel.log"
         fi
         
     else

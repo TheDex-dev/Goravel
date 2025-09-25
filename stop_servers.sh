@@ -6,7 +6,7 @@ set -e
 # Configuration
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)"
 GO_SERVER_DIR="$SCRIPT_DIR/goserver"
-LARAVEL_DIR="$SCRIPT_DIR/Pendataan_IGD"
+LARAVEL_DIR="$SCRIPT_DIR/laravel"
 
 # Colors for output
 RED='\033[0;31m'
@@ -36,8 +36,8 @@ print_warning() {
 stop_servers_by_pid() {
     local stopped=0
     
-    if [[ -f "server_pids.txt" ]]; then
-        source server_pids.txt
+    if [[ -f "$SCRIPT_DIR/bin/server_pids.txt" ]]; then
+        source "$SCRIPT_DIR/bin/server_pids.txt"
         
         # Stop Go server
         if [[ -n "$GO_PID" ]] && kill -0 $GO_PID 2>/dev/null; then
@@ -70,7 +70,7 @@ stop_servers_by_pid() {
         fi
         
         # Clean up PID files
-        rm -f server_pids.txt
+        rm -f "$SCRIPT_DIR/bin/server_pids.txt"
         rm -f "$GO_SERVER_DIR/go_server.pid" 2>/dev/null || true
         rm -f "$LARAVEL_DIR/laravel_server.pid" 2>/dev/null || true
         

@@ -23,7 +23,7 @@ print_info() {
 
 # Navigate to Laravel directory
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)"
-LARAVEL_DIR="$SCRIPT_DIR/laravel"
+LARAVEL_DIR="$SCRIPT_DIR/../laravel"
 
 cd "$LARAVEL_DIR"
 
