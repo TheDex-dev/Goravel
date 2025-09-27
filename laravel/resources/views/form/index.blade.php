@@ -241,6 +241,71 @@ body {
 .loading-spinner { display: none; }
 .btn-primary.loading .btn-text { display: none; }
 .btn-primary.loading .loading-spinner { display: inline-block; }
+
+.steps-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 2rem;
+}
+.step-item {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+.step-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #e2e8f0;
+    color: #475569;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    margin-bottom: 0.5rem;
+}
+.step-title {
+    font-size: 0.875rem;
+    color: #475569;
+    font-weight: 500;
+}
+.step-item.active .step-circle {
+    background-color: #0ea5e9;
+    color: #fff;
+    box-shadow: 0 0 0 4px rgba(14,165,233,0.2);
+}
+.step-item.active .step-title {
+    color: #0f172a;
+    font-weight: 600;
+}
+.step-line {
+    flex: 1;
+    height: 2px;
+    background-color: #e2e8f0;
+    margin: 0 1rem;
+    transform: translateY(-1rem);
+}
+.step-item.active ~ .step-line {
+    background-color: #0ea5e9;
+}
+.step-item.active ~ .step-item .step-circle {
+    background-color: #e2e8f0;
+}
+.step-content {
+    display: none;
+}
+.step-content.active {
+    display: block;
+}
+.form-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+}
 </style>
 
 @endpush
@@ -262,6 +327,7 @@ body {
             </div>
             <hr>
             <div class="card-body">
+                @include('layout.steps')
                 <!-- Session-based success/error messages -->
                 @if(isset($successMessage) && $successMessage)
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -278,103 +344,118 @@ body {
                 @endif
 
                 <form method="POST" id="escortForm" enctype="multipart/form-data">
-                    
-                    <div class="form-group">
-                        <label for="kategori_pengantar" class="form-label">
-                            <i class="fas fa-tags"></i> Kategori Pengantar
-                        </label>
-                        <select class="form-select" id="kategori_pengantar" name="kategori_pengantar" required>
-                            <option value="">Pilih kategori pengantar...</option>
-                            <option value="Polisi">Polisi</option>
-                            <option value="Ambulans">Ambulans</option>
-                            <option value="Perorangan">Perorangan</option>
-                        </select>
-                    </div>
+                    <div class="step-content active" data-step="1">
+                        <div class="form-group">
+                            <label for="kategori_pengantar" class="form-label">
+                                <i class="fas fa-tags"></i> Kategori Pengantar
+                            </label>
+                            <select class="form-select" id="kategori_pengantar" name="kategori_pengantar" required>
+                                <option value="">Pilih kategori pengantar...</option>
+                                <option value="Polisi">Polisi</option>
+                                <option value="Ambulans">Ambulans</option>
+                                <option value="Perorangan">Perorangan</option>
+                            </select>
+                        </div>
 
-                            <div class="form-group">
-                                <label for="nama_pengantar" class="form-label">
-                                    <i class="fas fa-user"></i> Nama Pengantar
-                                </label>
-                                <div class="input-group">
-                                    <div class="input-group-text">
-                                        <i class="fas fa-user"></i>
-                                    </div>
-                                    <input type="text" class="form-control" id="nama_pengantar" name="nama_pengantar" 
-                                           placeholder="Masukkan nama lengkap" required>
+                        <div class="form-group">
+                            <label for="nama_pengantar" class="form-label">
+                                <i class="fas fa-user"></i> Nama Pengantar
+                            </label>
+                            <div class="input-group">
+                                <div class="input-group-text">
+                                    <i class="fas fa-id-card"></i>
                                 </div>
+                                <input type="text" class="form-control" id="nama_pengantar" name="nama_pengantar" 
+                                       placeholder="Masukkan nama lengkap pengantar" required>
                             </div>
+                        </div>
 
-                            <div class="form-group">
-                                <label for="jenis_kelamin" class="form-label">
-                                    <i class="fas fa-venus-mars"></i> Jenis Kelamin
-                                </label>
-                                <select class="form-select" id="jenis_kelamin" name="jenis_kelamin" required>
-                                    <option value="">Pilih jenis kelamin...</option>
-                                    <option value="Laki-laki">Laki-laki</option>
-                                    <option value="Perempuan">Perempuan</option>
-                                </select>
-                            </div>
+                        <div class="form-group">
+                            <label for="jenis_kelamin" class="form-label">
+                                <i class="fas fa-venus-mars"></i> Jenis Kelamin
+                            </label>
+                            <select class="form-select" id="jenis_kelamin" name="jenis_kelamin" required>
+                                <option value="">Pilih jenis kelamin...</option>
+                                <option value="Laki-laki">Laki-laki</option>
+                                <option value="Perempuan">Perempuan</option>
+                            </select>
+                        </div>
 
-                            <div class="form-group">
-                                <label for="nomor_hp" class="form-label">
-                                    <i class="fas fa-phone"></i> Nomor HP
-                                </label>
-                                <div class="input-group">
-                                    <div class="input-group-text">
-                                        <i class="fas fa-phone"></i>
-                                    </div>
-                                    <input type="tel" class="form-control" id="nomor_hp" name="nomor_hp" 
-                                           placeholder="Contoh: 08123456789" required>
+                        <div class="form-group">
+                            <label for="nomor_hp" class="form-label">
+                                <i class="fas fa-phone"></i> Nomor HP
+                            </label>
+                            <div class="input-group">
+                                <div class="input-group-text">
+                                    +62
                                 </div>
+                                <input type="tel" class="form-control" id="nomor_hp" name="nomor_hp" 
+                                       placeholder="Contoh: 81234567890" required>
                             </div>
+                        </div>
 
-                            <div class="form-group">
-                                <label for="plat_nomor" class="form-label">
-                                    <i class="fas fa-car"></i> Plat Nomor
-                                </label>
-                                <div class="input-group">
-                                    <div class="input-group-text">
-                                        <i class="fas fa-car"></i>
-                                    </div>
-                                    <input type="text" class="form-control" id="plat_nomor" name="plat_nomor" 
-                                           placeholder="Contoh: B 1234 ABC" required>
+                        <div class="form-group">
+                            <label for="plat_nomor" class="form-label">
+                                <i class="fas fa-car"></i> Plat Nomor (Opsional)
+                            </label>
+                            <div class="input-group">
+                                <div class="input-group-text">
+                                    <i class="fas fa-hashtag"></i>
                                 </div>
+                                <input type="text" class="form-control" id="plat_nomor" name="plat_nomor" 
+                                       placeholder="Contoh: AB 1234 CD">
                             </div>
-                    <div class="form-group">
-                        <label for="nama_pasien" class="form-label">
-                            <i class="fas fa-user-injured"></i> Nama Pasien
-                        </label>
-                        <div class="input-group">
-                            <div class="input-group-text">
-                                <i class="fas fa-user-injured"></i>
-                            </div>
-                            <input type="text" class="form-control" id="nama_pasien" name="nama_pasien" 
-                                   placeholder="Masukkan nama lengkap pasien" required>
+                        </div>
+                        <div class="form-navigation">
+                            <button type="button" class="btn btn-primary next-step">Berikutnya <i class="fas fa-arrow-right"></i></button>
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="foto_pengantar" class="form-label">
-                            <i class="fas fa-camera"></i> Foto Pengantar
-                        </label>
-                        <div class="file-input-wrapper">
-                            <input type="file" class="file-input" id="foto_pengantar" name="foto_pengantar" 
-                                   accept="image/*" required>
-                            <div class="file-input-display">
-                                <i class="fas fa-cloud-upload-alt file-icon"></i>
-                                <span class="file-text">Klik untuk memilih foto atau drag & drop</span>
+                    <div class="step-content" data-step="2">
+                        <div class="form-group">
+                            <label for="nama_pasien" class="form-label">
+                                <i class="fas fa-user-injured"></i> Nama Pasien
+                            </label>
+                            <div class="input-group">
+                                <div class="input-group-text">
+                                    <i class="fas fa-id-card-alt"></i>
+                                </div>
+                                <input type="text" class="form-control" id="nama_pasien" name="nama_pasien" 
+                                       placeholder="Masukkan nama lengkap pasien" required>
                             </div>
+                        </div>
+                        <div class="form-navigation">
+                            <button type="button" class="btn btn-secondary prev-step"><i class="fas fa-arrow-left"></i> Kembali</button>
+                            <button type="button" class="btn btn-primary next-step">Berikutnya <i class="fas fa-arrow-right"></i></button>
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary" id="submitBtn">
-                        <span class="btn-text">
-                            <i class="fas fa-paper-plane"></i> Kirim Data
-                        </span>
-                        <span class="loading-spinner">
-                            <i class="fas fa-spinner fa-spin"></i> Memproses...
-                        </span>
-                    </button>
+                    <div class="step-content" data-step="3">
+                        <div class="form-group">
+                            <label for="foto_pengantar" class="form-label">
+                                <i class="fas fa-camera"></i> Foto Pengantar
+                            </label>
+                            <div class="file-input-wrapper">
+                                <input type="file" class="file-input" id="foto_pengantar" name="foto_pengantar" 
+                                       accept="image/*" required>
+                                <div class="file-input-display">
+                                    <i class="fas fa-cloud-upload-alt file-icon"></i>
+                                    <span class="file-text">Klik untuk memilih foto atau drag & drop</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-navigation">
+                            <button type="button" class="btn btn-secondary prev-step"><i class="fas fa-arrow-left"></i> Kembali</button>
+                            <button type="submit" class="btn btn-primary" id="submitBtn">
+                                <span class="btn-text">
+                                    <i class="fas fa-paper-plane"></i> Kirim Data
+                                </span>
+                                <span class="loading-spinner">
+                                    <i class="fas fa-spinner fa-spin"></i> Memproses...
+                                </span>
+                            </button>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
@@ -386,6 +467,44 @@ body {
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.5/dist/sweetalert2.all.min.js"></script>
 <script>
     $(document).ready(function() {
+        let currentStep = 1;
+
+        function showStep(step) {
+            $('.step-content').removeClass('active');
+            $(`.step-content[data-step="${step}"]`).addClass('active');
+            $('.step-item').removeClass('active');
+            $(`.step-item[data-step="${step}"]`).addClass('active');
+            currentStep = step;
+        }
+
+        $('.next-step').on('click', function() {
+            // Basic validation for current step
+            let isValid = true;
+            $(`.step-content[data-step="${currentStep}"]`).find('input[required], select[required]').each(function() {
+                if (!$(this).val()) {
+                    isValid = false;
+                    $(this).addClass('is-invalid');
+                } else {
+                    $(this).removeClass('is-invalid');
+                }
+            });
+
+            if (isValid) {
+                showStep(currentStep + 1);
+            } else {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Peringatan!',
+                    text: 'Harap isi semua kolom yang wajib diisi.',
+                    confirmButtonColor: '#ffc107'
+                });
+            }
+        });
+
+        $('.prev-step').on('click', function() {
+            showStep(currentStep - 1);
+        });
+
         // File input handling
         $('#foto_pengantar').on('change', function() {
             const file = this.files[0];
@@ -577,8 +696,8 @@ body {
                         // Clear form validation states
                         $('.form-control, .form-select').removeClass('is-valid is-invalid');
                         
-                        // Focus first input for next entry
-                        $('#kategori_pengantar').focus();
+                        // Go to first step
+                        showStep(1);
                     });
                     
                     // Optional: Show submission statistics
@@ -621,10 +740,8 @@ body {
                         title: 'Oops!',
                         html: `
                             <div>
-                                <p>${errorMessage}</p>
-                                ${errorDetails ? `<div class="mt-2"><small>${errorDetails.replace(/\n/g, '<br>')}</small></div>` : ''}
-                                ${xhr.responseJSON && xhr.responseJSON.submission_id ? 
-                                    `<div class="mt-2"><small class="text-muted">ID Error: ${xhr.responseJSON.submission_id}</small></div>` : ''}
+                                <p class="mb-1"><strong>Pesan:</strong> ${errorMessage}</p>
+                                ${errorDetails ? `<pre class="text-start small mt-2">${errorDetails}</pre>` : ''}
                             </div>
                         `,
                         confirmButtonText: 'Coba Lagi',
@@ -664,16 +781,16 @@ body {
         $('input[required], select[required]').on('blur', function() {
             const field = $(this);
             if (!field.val()) {
-                field.css('border-color', '#dc3545');
+                field.addClass('is-invalid');
             } else {
-                field.css('border-color', '#28a745');
+                field.removeClass('is-invalid').addClass('is-valid');
             }
         });
 
         $('input[required], select[required]').on('input change', function() {
             const field = $(this);
             if (field.val()) {
-                field.css('border-color', '#28a745');
+                field.removeClass('is-invalid').addClass('is-valid');
             }
         });
     });

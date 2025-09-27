@@ -4,8 +4,8 @@
  - using env:	export GIN_MODE=release
  - using code:	gin.SetMode(gin.ReleaseMode)
 
-2025/09/25 20:27:19 Successfully connected to PostgreSQL database
-2025/09/25 20:27:19 Database migrations completed successfully
+2025/09/27 09:07:10 Successfully connected to PostgreSQL database
+2025/09/27 09:07:10 Database migrations completed successfully
 [GIN-debug] GET    /api/health               --> main.(*Server).healthCheck-fm (6 handlers)
 [GIN-debug] GET    /api/db-test              --> main.(*Server).dbTest-fm (6 handlers)
 [GIN-debug] GET    /api/escort               --> goserver/handlers.(*EscortHandler).GetEscorts-fm (6 handlers)
@@ -27,10 +27,10 @@
 [GIN-debug] PUT    /api/v1/users/:id         --> main.(*Server).updateUser-fm (6 handlers)
 [GIN-debug] DELETE /api/v1/users/:id         --> main.(*Server).deleteUser-fm (6 handlers)
 [GIN-debug] GET    /                         --> main.(*Server).setupRoutes.func2 (6 handlers)
-2025/09/25 20:27:19 Starting server on port 8080
-2025/09/25 20:27:19 Environment: local
+2025/09/27 09:07:10 Starting server on port 8080
+2025/09/27 09:07:10 Environment: local
 [GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
 Please check https://github.com/gin-gonic/gin/blob/master/docs/doc.md#dont-trust-all-proxies for details.
 [GIN-debug] Listening and serving HTTP on :8080
-[GIN] 2025/09/25 - 20:27:20 | 200 |     102.668µs |             ::1 | GET      "/api/health"
-[GIN] 2025/09/25 - 20:27:20 | 200 |     181.707µs |             ::1 | GET      "/api/health"
+[GIN] 2025/09/27 - 09:07:11 | 200 |      63.619µs |             ::1 | GET      "/api/health"
+[GIN] 2025/09/27 - 09:07:11 | 200 |      137.72µs |             ::1 | GET      "/api/health"

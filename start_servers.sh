@@ -181,6 +181,16 @@ open_log_terminal() {
     fi
 }
 
+# Close opened log terminals
+close_log_terminal() {
+    if command -v kitty &> /dev/null; then
+        print_info "Closing kitty log terminals..."
+        pkill -f "kitty --detach sh -c tail -f $GO_SERVER_DIR/log.txt" || true
+        pkill -f "kitty --detach sh -c tail -f $LARAVEL_DIR/storage/logs/serve.log" || true
+    fi
+}
+
+
 # Show running servers status
 show_status() {
     echo ""
@@ -229,6 +239,8 @@ cleanup() {
         kill $LARAVEL_PID
         print_info "Laravel server stopped"
     fi
+    close_log_terminal
+    print_success "All servers stopped. Goodbye!"
     
     exit 0
 }
