@@ -1,0 +1,168 @@
+/* public/css/login.css */
+
+/* =================================== */
+/* TOMBOL DARK MODE & LAYOUT HALAMAN   */
+/* =================================== */
+
+.login-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 1rem;
+    background-color: var(--bs-body-bg); /* Menggunakan variabel global */
+    transition: background-color 0.3s ease;
+}
+
+.login-container {
+    max-width: 420px;
+    width: 90%;
+}
+
+/* =================================== */
+/* KARTU LOGIN & ANIMASI               */
+/* =================================== */
+
+.login-card {
+    background: var(--card-bg); /* Menggunakan variabel global */
+    backdrop-filter: blur(10px);
+    border-radius: 1rem;
+    border: 1px solid var(--card-border-color); /* Menggunakan variabel global */
+    box-shadow: 0 0.5rem 2rem 0 rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transform: translateY(-20px);
+    animation: slideDown 0.6s ease-out forwards;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+@keyframes slideDown {
+    to {
+        transform: translateY(0);
+    }
+}
+
+/* Penyesuaian bayangan di dark mode */
+[data-bs-theme="dark"] .login-card {
+    box-shadow: 0 0.5rem 2rem 0 rgba(0, 0, 0, 0.5);
+}
+
+/* =================================== */
+/* HEADER & BODY KARTU                 */
+/* =================================== */
+
+.card-header {
+    background-color: var(--card-header-bg); /* Menggunakan variabel global */
+    border-bottom: 1px solid var(--card-border-color); /* Menggunakan variabel global */
+    padding: 1.5rem 1.25rem;
+    text-align: center;
+}
+
+.logo {
+    height: 150px;
+    width: auto;
+    margin-bottom: 1rem;
+}
+
+.login-title {
+    color: var(--bs-body-color); /* Menggunakan variabel global */
+    font-weight: 600;
+    font-size: 1.5rem;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.login-subtitle {
+    color: var(--text-muted-custom); /* Menggunakan variabel global */
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+}
+
+.card-body {
+    padding: 2rem 1.25rem;
+}
+
+/* =================================== */
+/* FORM STYLING (INPUT, TOMBOL, DLL)   */
+/* =================================== */
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.input-group-text {
+    background-color: var(--card-header-bg); /* Cocok dengan header */
+    border: 1px solid var(--input-border);
+    color: var(--text-muted-custom);
+}
+
+.form-control {
+    color: var(--input-color);
+    background-color: var(--input-bg);
+    border: 1px solid var(--input-border);
+}
+
+.form-control:focus {
+    border-color: #bac8f3;
+    box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
+}
+
+[data-bs-theme="dark"] .form-control:focus {
+    border-color: #1cc88a; /* Aksen hijau di dark mode */
+    box-shadow: 0 0 0 0.2rem rgba(28, 200, 138, 0.25);
+}
+
+/* Tombol Login */
+.btn-primary {
+    background-color: #4e73df;
+    border-color: #4e73df;
+    padding: 0.75rem 1rem;
+    font-weight: 600;
+    width: 100%;
+    text-transform: uppercase;
+}
+.btn-primary:hover {
+    background-color: #2e59d9;
+}
+
+/* Spinner di dalam tombol */
+.loading-spinner {
+    display: none;
+}
+.btn.loading .btn-text {
+    display: none;
+}
+.btn.loading .loading-spinner {
+    display: inline-block;
+}
+
+/* Alert Error */
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+[data-bs-theme="dark"] .alert-danger {
+    color: #f8d7da;
+    background-color: #491f24;
+    border-color: #721c24;
+}
+
+/* Info Sistem */
+.system-info {
+    text-align: center;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--card-border-color); /* Menggunakan variabel global */
+}
+.system-info h6 {
+    color: var(--bs-body-color); /* Menggunakan variabel global */
+    font-weight: 600;
+}
+.system-info p {
+    color: var(--text-muted-custom); /* Menggunakan variabel global */
+    font-size: 0.75rem;
+}

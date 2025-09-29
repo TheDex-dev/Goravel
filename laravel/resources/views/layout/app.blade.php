@@ -18,10 +18,13 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     
     {{-- Custom CSS --}}
-    <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/global.css') }}" rel="stylesheet">
     
     {{-- Additional Styles --}}
     @stack('styles')
+    
+    {{-- Favicon --}}
+    <link rel="icon" type="image/png" href="{{ asset('cropped_circle_image_RS.png') }}">
 </head>
 <body>
     @auth
@@ -159,6 +162,45 @@
             });
             return false;
         }
+        $(document).ready(function() {
+    // ... (semua kode JS Anda yang sudah ada) ...
+
+    // --- Dark Mode Logic ---
+    const themeToggle = $('#darkModeToggle');
+    const themeIcon = themeToggle.find('i');
+    const htmlEl = $('html');
+
+    // Function to apply the saved theme on page load
+    const applyTheme = (theme) => {
+        if (theme === 'dark') {
+            htmlEl.attr('data-bs-theme', 'dark');
+            themeIcon.removeClass('fa-moon').addClass('fa-sun');
+        } else {
+            htmlEl.removeAttr('data-bs-theme');
+            themeIcon.removeClass('fa-sun').addClass('fa-moon');
+        }
+    };
+
+    // Check for saved theme in localStorage
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    applyTheme(savedTheme);
+
+    // Event listener for the toggle button
+    themeToggle.on('click', function() {
+        let currentTheme = htmlEl.attr('data-bs-theme');
+        if (currentTheme === 'dark') {
+            // Switch to light mode
+            localStorage.setItem('theme', 'light');
+            applyTheme('light');
+        } else {
+            // Switch to dark mode
+            localStorage.setItem('theme', 'dark');
+            applyTheme('dark');
+        }
+    });
+    // --- End of Dark Mode Logic ---
+
+});
     </script>
     @stack('scripts')
 </body>

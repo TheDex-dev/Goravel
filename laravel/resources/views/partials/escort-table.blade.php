@@ -295,14 +295,14 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 @if(method_exists($escorts, 'hasPages') && $escorts->hasPages())
-    <div class="d-flex justify-content-between align-items-center mt-3">
+    <div class="d-flex justify-content-center align-items-center mt-3">
         <div class="text-muted small">
             Menampilkan {{ $escorts->firstItem() ?? 0 }} sampai {{ $escorts->lastItem() ?? 0 }} 
             dari {{ $escorts->total() }} hasil
         </div>
     </div>
 @elseif(is_countable($escorts) && count($escorts) > 0)
-    <div class="d-flex justify-content-between align-items-center mt-3">
+    <div class="d-flex justify-content-center align-items-center mt-3">
         <div class="text-muted small">
             Menampilkan {{ count($escorts) }} dari {{ count($escorts) }} hasil
             @if(request('view_all') === 'true')

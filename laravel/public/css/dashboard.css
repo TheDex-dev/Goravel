@@ -1,0 +1,291 @@
+
+    /* Dark Mode CSS Variables */
+    :root {
+        /* Light Theme (Default) */
+        --bs-body-bg: #f8f9fc;
+        --bs-body-color: #5a5c69;
+        --card-bg: #ffffff;
+        --card-border-color: #e3e6f0;
+        --card-header-bg: #f8f9fc;
+        --card-header-color: #4e73df;
+        --text-muted-custom: #858796;
+        --input-bg: #ffffff;
+        --input-border: #d1d3e2;
+        --input-color: #6e707e;
+        --table-header-bg: #eaecf4;
+        --table-row-hover-bg: #f2f3f7;
+        --alert-info-bg: #dbeafa;
+        --alert-info-color: #2980b9;
+        --alert-info-border: #a9d9f5;
+    }
+
+    [data-bs-theme="dark"] {
+        /* Dark Theme (More intense dark) */
+        --bs-body-bg: #000000; /* True Black */
+        --bs-body-color: #e0e0e0; /* Lighter text for contrast */
+        --card-bg: #121212; /* Very dark grey for cards */
+        --card-border-color: #333333;
+        --card-header-bg: #1a1a1a;
+        --card-header-color: #1cc88a; /* Keep accent color */
+        --text-muted-custom: #b0b0b0;
+        --input-bg: #1a1a1a;
+        --input-border: #333333;
+        --input-color: #e0e0e0;
+        --table-header-bg: #2a2a2a;
+        --table-row-hover-bg: #1e1e1e;
+        --alert-info-bg: #1a2c3a; /* Darker alert background */
+        --alert-info-color: #92c4ec; /* Lighter text for alert */
+        --alert-info-border: #4a6b82;
+
+        /* Specific overrides for dark mode */
+        .form-control, .form-select {
+            background-color: var(--input-bg);
+            color: var(--input-color);
+            border-color: var(--input-border);
+        }
+        .form-control:focus, .form-select:focus {
+            background-color: var(--input-bg);
+            color: var(--input-color);
+            border-color: #1cc88a; /* Accent color for focus */
+            box-shadow: 0 0 0 0.25rem rgba(28, 200, 138, 0.25);
+        }
+        .table {
+            --bs-table-bg: var(--card-bg);
+            --bs-table-border-color: var(--card-border-color);
+            --bs-table-color: var(--bs-body-color);
+            --bs-table-striped-bg: #1e1e1e; /* Darker striped rows */
+            --bs-table-hover-bg: var(--table-row-hover-bg);
+        }
+        .table thead th {
+            background-color: var(--table-header-bg);
+            color: var(--bs-body-color);
+            border-bottom-color: var(--card-border-color);
+        }
+        .text-gray-800 {
+            color: #f8f9fa !important; /* Ensure main titles are bright */
+        }
+        .page-link {
+            background-color: var(--card-bg);
+            border-color: var(--card-border-color);
+            color: var(--bs-body-color);
+        }
+        .page-item.active .page-link {
+            background-color: #1cc88a;
+            border-color: #1cc88a;
+            color: #ffffff;
+        }
+        .page-link:hover {
+            background-color: var(--table-row-hover-bg);
+        }
+        .alert-info {
+            background-color: var(--alert-info-bg) !important;
+            color: var(--alert-info-color) !important;
+            border-color: var(--alert-info-border) !important;
+        }
+        .alert-info strong {
+            color: var(--alert-info-color) !important;
+        }
+    }
+    /* --- End of Dark Mode CSS --- */
+    
+    /* --- CSS BARU: Kartu Ringkasan di Dark Mode (Versi Gradien Lebih Hidup) --- */
+    
+    /* 1. Reset gaya dari percobaan sebelumnya (jika ada) */
+    [data-bs-theme="dark"] .stats-card h2,
+    [data-bs-theme="dark"] .stats-card h6,
+    [data-bs-theme="dark"] .stats-card i {
+        color: inherit !important; 
+        text-shadow: none !important; 
+    }
+
+    /* 2. Sesuaikan kembali latar belakang ikon agar cocok */
+    [data-bs-theme="dark"] .stats-card .flex-shrink-0 {
+        background-color: rgba(255, 255, 255, 0.15) !important;
+    }
+
+    /* 3. Definisikan ulang gradien warna yang lebih gelap dan kaya (rich) */
+    [data-bs-theme="dark"] .stats-card.bg-gradient-primary {
+        background: linear-gradient(45deg, #373B8B, #6A3898) !important;
+        border-color: #6A3898 !important;
+    }
+
+    [data-bs-theme="dark"] .stats-card.bg-gradient-info {
+        background: linear-gradient(45deg, #227684, #1B8797) !important;
+        border-color: #1B8797 !important;
+    }
+
+    [data-bs-theme="dark"] .stats-card.bg-gradient-warning {
+        background: linear-gradient(45deg, #A37B1B, #D49B2A) !important;
+        border-color: #D49B2A !important;
+    }
+
+    [data-bs-theme="dark"] .stats-card.bg-gradient-success {
+        background: linear-gradient(45deg, #11826B, #159F7F) !important;
+        border-color: #159F7F !important;
+    }
+    /* --- Akhir CSS Baru --- */
+
+    /* Apply variables to elements */
+    body {
+        background-color: var(--bs-body-bg);
+        color: var(--bs-body-color);
+    }
+    .card {
+        background-color: var(--card-bg);
+        border: 1px solid var(--card-border-color); /* Ensure cards have a border for separation */
+        color: var(--bs-body-color);
+    }
+    .card-header {
+        background-color: var(--card-header-bg);
+        border-bottom: 1px solid var(--card-border-color);
+    }
+    .card-header .font-weight-bold {
+        color: var(--card-header-color) !important;
+    }
+    .text-muted {
+        color: var(--text-muted-custom) !important;
+    }
+    .form-label {
+        color: var(--bs-body-color); /* Ensure labels are visible */
+    }
+    .table thead th {
+        background-color: var(--table-header-bg);
+        color: var(--bs-body-color);
+    }
+    .table-responsive {
+        background-color: var(--card-bg); /* Ensure scrollable area matches card */
+    }
+    
+    /* Custom styles for SweetAlert2 popups */
+    .swal-wide {
+        width: 600px !important;
+        max-width: 90% !important;
+    }
+    .swal2-popup {
+        background-color: var(--card-bg) !important; /* Apply card background to popup */
+        color: var(--bs-body-color) !important; /* Apply body text color to popup text */
+        border: 1px solid var(--card-border-color) !important;
+    }
+    .swal2-title {
+        color: var(--bs-body-color) !important; /* Title color */
+    }
+    .swal2-content {
+        color: var(--bs-body-color) !important; /* Content color */
+    }
+    .swal2-html-container {
+        color: var(--bs-body-color) !important; /* HTML container color */
+    }
+    .swal2-footer {
+        color: var(--bs-body-color) !important; /* Footer color */
+        border-top-color: var(--card-border-color) !important;
+    }
+    .swal2-icon.swal2-warning {
+        border-color: #f6c23e !important;
+        color: #f6c23e !important;
+    }
+    .swal2-icon.swal2-info {
+        border-color: #36b9cc !important;
+        color: #36b9cc !important;
+    }
+    .swal2-icon.swal2-question {
+        border-color: #858796 !important;
+        color: #858796 !important;
+    }
+    .swal2-icon.swal2-success {
+        border-color: #1cc88a !important;
+        color: #1cc88a !important;
+    }
+    .swal2-icon.swal2-error {
+        border-color: #e74a3b !important;
+        color: #e74a3b !important;
+    }
+    /* Buttons in SweetAlert2 */
+    .swal2-actions .swal2-confirm {
+        background-color: #28a745 !important;
+        color: white !important;
+    }
+    .swal2-actions .swal2-cancel {
+        background-color: #6c757d !important;
+        color: white !important;
+    }
+
+    .swal2-popup .table {
+        margin-bottom: 0;
+        font-size: 0.9rem;
+        background-color: var(--card-bg); /* Ensure table inside popup is dark */
+        color: var(--bs-body-color);
+    }
+    .swal2-popup .table td {
+        padding: 0.4rem;
+        vertical-align: middle;
+        border-top: 1px solid var(--card-border-color);
+    }
+    .swal2-popup .table th {
+        background-color: var(--table-header-bg);
+        color: var(--bs-body-color);
+        border-bottom: 1px solid var(--card-border-color);
+    }
+    .swal2-popup .table td:first-child {
+        width: 35%;
+        color: var(--text-muted-custom);
+    }
+    .text-left {
+        text-align: left !important;
+    }
+    .swal2-popup .alert {
+        margin-bottom: 0;
+        font-size: 0.9rem;
+        background-color: var(--alert-info-bg) !important;
+        color: var(--alert-info-color) !important;
+        border-color: var(--alert-info-border) !important;
+    }
+    
+    /* Simplified Gradient Backgrounds for Stats Cards - adjust if needed for dark mode contrast */
+    .bg-gradient-primary {
+        background: linear-gradient(45deg, #4e73df, #6c5ce7);
+    }
+    .bg-gradient-info {
+        background: linear-gradient(45deg, #36b9cc, #00cec9);
+    }
+    .bg-gradient-warning {
+        background: linear-gradient(45deg, #f6c23e, #fdcb6e);
+    }
+    .bg-gradient-success {
+        background: linear-gradient(45deg, #1cc88a, #00b894);
+    }
+    
+    /* Badge styling */
+    .badge-warning {
+        background-color: #f6c23e !important;
+        color: #1f2937 !important;
+    }
+    .badge-success {
+        background-color: #1cc88a !important;
+        color: white !important;
+    }
+    .badge-danger {
+        background-color: #e74a3b !important;
+        color: white !important;
+    }
+
+    /* Action buttons in table */
+    .btn-status-update {
+        margin: 1px;
+    }
+    .btn-group .btn {
+        margin-right: 2px;
+    }
+
+    /* Loading Spinner Styling */
+    #loading {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7); /* Darker overlay for loading */
+        z-index: 9999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }

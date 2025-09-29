@@ -43,6 +43,7 @@ Thumbs.db
 
 # Logs
 *.log
+log.txt
 
 # Database files
 *.db
@@ -52,6 +53,8 @@ Thumbs.db
 # Temporary files
 tmp/
 temp/
+go_server.pid
+server_pids.txt
 
 # Docker
 .dockerignore

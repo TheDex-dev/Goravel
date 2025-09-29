@@ -1,0 +1,221 @@
+/* public/css/form.css */
+
+/* =================================== */
+/* GAYA ASLI ANDA (MODE TERANG)        */
+/* =================================== */
+
+body {
+    background: whitesmoke;
+    min-height: 100vh;
+    margin: 0;
+    padding: 2rem 1rem;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* Form Container & Card */
+.form-container {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+}
+.form-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 1rem;
+    border: 1px solid #e3e6f0;
+    box-shadow: 0 0.5rem 2rem 0 rgba(58, 59, 69, 0.25);
+    overflow: hidden;
+    animation: slideUp 0.6s ease-out forwards;
+}
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Header */
+.card-header {
+    background: #fff;
+    padding: 2rem;
+    border-bottom: 1px solid #e3e6f0;
+    text-align: center;
+}
+.form-title {
+    color: #475569; /* Disesuaikan agar terlihat di latar terang */
+    font-weight: 600;
+    font-size: 1.75rem;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+.form-subtitle {
+    color: #858796;
+    font-size: 0.875rem;
+    margin: 0.5rem 0 0rem;
+}
+.logo {
+    height: 150px;
+    width: auto;
+    margin-bottom: 1rem;
+}
+
+/* Body & Section */
+.card-body {
+    padding: 2.5rem;
+    background: #fff;
+}
+
+/* Form Controls */
+.form-group { margin-bottom: 1.5rem; }
+.form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: #475569;
+}
+.form-control,
+.form-select {
+    display: block;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #0f172a;
+    background: #f8fafc;
+    border: 2px solid #e2e8f0;
+    border-radius: 0.75rem;
+    transition: all 0.2s ease;
+}
+.form-control:focus,
+.form-select:focus {
+    border-color: #0ea5e9;
+    box-shadow: 0 0 0 3px rgba(14,165,233,0.1);
+    outline: none;
+}
+.form-control::placeholder { color: #94a3b8; }
+
+/* Input Group */
+.input-group { display: flex; width: 100%; }
+.input-group-text {
+    background: #f8fafc;
+    border: 2px solid #e2e8f0;
+    border-right: 0;
+    border-radius: 0.75rem 0 0 0.75rem;
+    color: #64748b;
+    padding: 0.75rem 1rem;
+}
+.input-group .form-control {
+    border-left: 0;
+    border-radius: 0 0.75rem 0.75rem 0;
+}
+
+/* Custom File Input (Drag & Drop) */
+.file-input-wrapper { position: relative; width: 100%; }
+.file-input { position: absolute; opacity: 0; width: 100%; height: 100%; cursor: pointer; z-index: 10;}
+.file-input-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    border: 2px dashed #d1d3e2;
+    border-radius: 0.75rem;
+    background: #f8f9fc;
+    color: #858796;
+    text-align: center;
+    transition: all 0.2s ease-in-out;
+}
+.file-input-display:hover { border-color: #4e73df; background: #f1f3f5; }
+.file-input-display.has-file { border-style: solid; border-color: #1cc88a; background: #f0fff4; color: #1cc88a;}
+.file-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+
+/* Buttons */
+.btn-primary {
+    background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+    color: #fff;
+    border: none;
+    box-shadow: 0 4px 6px -1px rgba(14,165,233,0.2);
+    width: 100%;
+    padding: 0.875rem 1.75rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 0.75rem;
+    transition: all 0.2s ease;
+}
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px -1px rgba(14,165,233,0.3);
+}
+
+/* Loading Button */
+.loading-spinner { display: none; }
+.btn.loading .btn-text { display: none; }
+.btn.loading .loading-spinner { display: inline-block; }
+
+/* =================================== */
+/* DARK MODE OVERRIDES                 */
+/* =================================== */
+
+[data-bs-theme="dark"] body {
+    background: var(--bs-body-bg);
+}
+
+[data-bs-theme="dark"] .form-card {
+    background: rgba(18, 18, 18, 0.85); /* Efek kaca gelap */
+    border-color: var(--card-border-color);
+    box-shadow: 0 0.5rem 2rem 0 rgba(0, 0, 0, 0.7);
+}
+
+[data-bs-theme="dark"] .card-header,
+[data-bs-theme="dark"] .card-body {
+    background-color: transparent; /* Biarkan latar kartu utama terlihat */
+    border-color: var(--card-border-color);
+}
+
+[data-bs-theme="dark"] .form-title,
+[data-bs-theme="dark"] .form-label {
+    color: var(--bs-body-color);
+}
+
+[data-bs-theme="dark"] .form-subtitle {
+    color: var(--text-muted-custom);
+}
+
+[data-bs-theme="dark"] .form-control,
+[data-bs-theme="dark"] .form-select {
+    color: var(--input-color);
+    background-color: var(--input-bg);
+    border-color: var(--input-border);
+}
+
+[data-bs-theme="dark"] .form-control:focus,
+[data-bs-theme="dark"] .form-select:focus {
+    border-color: var(--card-header-color); /* Aksen hijau */
+    box-shadow: 0 0 0 3px rgba(28, 200, 138, 0.15);
+}
+
+[data-bs-theme="dark"] .input-group-text {
+    background-color: var(--input-bg);
+    border-color: var(--input-border);
+    color: var(--text-muted-custom);
+}
+
+[data-bs-theme="dark"] .file-input-display {
+    background: var(--card-header-bg);
+    border-color: var(--input-border);
+    color: var(--text-muted-custom);
+}
+
+[data-bs-theme="dark"] .file-input-display:hover {
+    border-color: var(--card-header-color);
+    color: var(--card-header-color);
+    background-color: var(--table-row-hover-bg);
+}
+
+[data-bs-theme="dark"] .file-input-display.has-file {
+    border-color: #1cc88a;
+    background-color: rgba(28, 200, 138, 0.1);
+    color: #1cc88a;
+}
